@@ -44,6 +44,7 @@ export default {
     width: 100%;
     height: auto;
     border-radius: 10px;
+    border:1px solid #ee0a0aa3
 }
 .item-text{
     text-align: center;

@@ -12,11 +12,11 @@
       <div>登录</div>
     </template>
   </nav-bar>
-<scroll  ref="scroll"  @scroll="contentScroll">
- <div class="scrollhg">
-    <swiper :banners="banners"></swiper>
-  <recommend-view :recommend="recommend"></recommend-view>
-  <apply>
+<scroll ref="scroll" @scroll="contentScroll" @pullingUp="loadMore"> 
+  <div class="scrollhg">
+   <swiper :banners="banners"></swiper>
+   <recommend-view :recommend="recommend"></recommend-view>
+   <apply>
   <apply-item v-for="item in applyData">
       <template #item-img>
         <div>
@@ -27,11 +27,11 @@
         <div>{{item.txt}}</div>
       </template>
   </apply-item>
-  </apply>
-  <feature-view></feature-view>
-  <tab-control :titles="['流行','新款','精选']" @tabClick="tabClick" ref="gettop"/>
-  <goods-list :goods="goods[currentType].list"/>
- </div>
+   </apply>
+   <feature-view></feature-view>
+   <tab-control :titles="['流行','新款','精选']" @tabClick="tabClick" ref="gettop"/>
+   <goods-list :goods="goods[currentType].list"/>
+  </div>
 </scroll>
 <back-top  @click="backClick" v-show="isShow"/>
 </template>
@@ -110,13 +110,14 @@ export default {
         txt:'加入会员'
       },],
       goods:{
-        'pop':{page:0,list:[]},
-        'new':{page:0,list:[]},
-        'sell':{page:0,list:[]},
+        'pop':{page: 0,list:[]},
+        'new':{page: 0,list:[]},
+        'sell':{page: 0,list:[]},
       },
       currentType:'pop',
       isShow:false,
-      times:null
+      times:null,
+      detaiHeight:0
     }
   },
  created(){
@@ -124,7 +125,7 @@ export default {
    this.getHomeGoodsData('pop')
    this.getHomeGoodsData('new')
    this.getHomeGoodsData('sell')
-  
+   
  },
  methods: {
   //网络请求home组件数据
@@ -141,7 +142,10 @@ export default {
     const page = this.goods[type].page+1
    getHomeGoodsData(type,page).then(res=>{
      this.goods[type].list.push(...res.data.list)
-    
+     this.goods[type].page+=1
+     console.log(this.goods[type].page);
+     
+     this.$refs.scroll.bs.finishPullUp()
    },err=>{
      console.log(err);
    })
@@ -167,7 +171,13 @@ export default {
   //显示隐藏返回顶部按钮
   contentScroll(xy){
    this.isShow= xy.y<-750?this.isShow = true:this.isShow=false
+  },
+  //上拉加载更多
+  loadMore(){
+    this.getHomeGoodsData(this.currentType)
+    
   }
+
   //返回顶部点击
 //   backClick(){
 //       this.times = setInterval(() => {

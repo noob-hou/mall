@@ -23,7 +23,7 @@ export default {
         this.$emit('scroll',xy)
     })
     this.bs.on('pullingUp' ,()=>{
-        console.log(11);
+        this.$emit('pullingUp')
     })
     },
     methods: {
