@@ -1,7 +1,7 @@
 <template>
   <nav-bar class="home-nav-bar">
     <template #nav-left>
-      <div class="home-nav-left">&#xe6b8;</div>
+      <div>&#xe6b8;</div>
     </template>
     <template #nav-center>
       <div class="home-nav-center">
@@ -29,8 +29,9 @@
   </apply-item>
    </apply>
    <feature-view></feature-view>
-   <tab-control :titles="['流行','新款','精选']" @tabClick="tabClick" ref="gettop"/>
-   <goods-list :goods="goods[currentType].list"/>
+   <tab-control :titles="['流行','新款','精选']" 
+     @tabClick="tabClick" ref="gettop"/>
+   <goods-list :goods="goods[currentType].list" ref="load"/>
   </div>
 </scroll>
 <back-top  @click="backClick" v-show="isShow"/>
@@ -117,7 +118,7 @@ export default {
       currentType:'pop',
       isShow:false,
       times:null,
-      detaiHeight:0
+      detaiHeight:0,
     }
   },
  created(){
@@ -125,7 +126,7 @@ export default {
    this.getHomeGoodsData('pop')
    this.getHomeGoodsData('new')
    this.getHomeGoodsData('sell')
-   
+   console.log('首页被创建了');
  },
  methods: {
   //网络请求home组件数据
@@ -143,7 +144,6 @@ export default {
    getHomeGoodsData(type,page).then(res=>{
      this.goods[type].list.push(...res.data.list)
      this.goods[type].page+=1
-     console.log(this.goods[type].page);
      
      this.$refs.scroll.bs.finishPullUp()
    },err=>{
@@ -168,12 +168,13 @@ export default {
   backClick(){
         this.$refs.scroll.bs.scrollTo(0,0,500)
   },
-  //显示隐藏返回顶部按钮
+  //显示隐藏返回顶部按钮和tab-control的固定定位
   contentScroll(xy){
    this.isShow= xy.y<-750?this.isShow = true:this.isShow=false
   },
   //上拉加载更多
   loadMore(){
+    this.$refs.load.isIf = true
     this.getHomeGoodsData(this.currentType)
     
   }
@@ -199,16 +200,13 @@ export default {
 //  mounted(){
 //  window.addEventListener('scroll',this.showBackTop,true)
 // },
-}}
+ },
+}
 </script>
 
 <style>
 .home-nav-bar{
   background-color: #ffc001;
-}
-.home-nav-left{
-   font-family: "iconfont";
-    font-size: 20px;
 }
 .home-nav-center input{
   height: 30px;
@@ -218,7 +216,10 @@ export default {
   padding-left:20px;
 }
 .scrollhg{
-  height: calc(100%-90px);
-  overflow: hidden;
+  
+    overflow: hidden;
+    padding-bottom: 49px;
+    height: calc(100%-93px);
+
 }
 </style>

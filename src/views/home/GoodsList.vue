@@ -1,12 +1,18 @@
 <template>
   <div class="goods-list">
      <goods-list-item v-for="item in goods" :goodsItem="item" />
+     <span v-if="isIf">---------正在加载中---------</span>
   </div>
 </template>
 
 <script>
 import GoodsListItem from './GoodsListItem.vue'
 export default {
+data() {
+    return {
+        isIf:false
+    }
+},
 props:{
     goods:{
         type:Array,

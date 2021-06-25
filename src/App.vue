@@ -1,6 +1,12 @@
 <template>
  <main-tab-bar></main-tab-bar>
-  <router-view/>
+ <router-view v-slot="{ Component }">
+  <transition>
+    <keep-alive exclude="detail">
+      <component :is="Component" />
+    </keep-alive>
+  </transition>
+</router-view>
 </template>
 <script>
 import MainTabBar from './components/MainTabBar.vue'
@@ -12,6 +18,7 @@ export default {
 <style>
 @import "assets/css/base.css";
 #app{
-  padding-bottom: 49px;
+  position: relative;
+  height: calc(100vh - var(--status-bar-height) - var(--window-bottom));
 }
 </style>

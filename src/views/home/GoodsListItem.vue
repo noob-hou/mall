@@ -1,15 +1,19 @@
 <template>
-  <div class="goods-list-item">
-      <img :src="goodsItem.show.img" alt="">
+  <div class="goods-list-item" @click="itemClick">
+      <img :src="showImg" alt="" @load="imgLoad">
       <div class="item-text">
           <p>{{goodsItem.title}}</p>
           <span class="active">￥{{goodsItem.price}}</span>|
-          <span :class="{active:isActive}" @click="likeClick">❤{{goodsItem.cfav}}</span>
+          <span :class="{active:isActive}" 
+          @click="likeClick"
+          class="icon"
+          >&#xe629;{{goodsItem.cfav}}</span>
       </div>
   </div>
 </template>
 
 <script>
+import {Bus} from '@/common/common.js'
 export default {
     data() {
         return {
@@ -24,12 +28,25 @@ export default {
             }
         }
     },
+    computed: {
+       showImg(){
+        return  this.goodsItem.image || this.goodsItem.show.img
+       }
+    },
     methods: {
         likeClick(){
           this.isActive = !this.isActive
+        },
+        imgLoad(){
+            if(this.$route.path.indexOf('/home')){
+              Bus.emit('imgLoad',"1111")
+            }
+            
+        },
+        itemClick(){
+            this.$router.push('/detail/'+this.goodsItem.iid)
         }
     },
-
 }
 </script>
 
@@ -38,13 +55,15 @@ export default {
     width: 48%;
     margin-right: 2%;
     margin-bottom: 5px;
+    border-radius: 10px;
+    border:1px solid #ee0a0aa3;
+    box-sizing: border-box;
 }
 .goods-list-item img{
     display: block;
     width: 100%;
     height: auto;
-    border-radius: 10px;
-    border:1px solid #ee0a0aa3
+    
 }
 .item-text{
     text-align: center;
@@ -60,5 +79,8 @@ export default {
 }
 .active{
     color: #ee0a0aa3;
+}
+.icon{
+    font-family: "iconfont";
 }
 </style>

@@ -30,7 +30,6 @@ props:{
     color: #fff;
     text-align: center;
     vertical-align:middle;
-    background-color:red;
   }
   .image{
       width: 100%;

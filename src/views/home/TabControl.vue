@@ -11,8 +11,7 @@ export default {
 data() {
     return {
         currentInedx:0,
-        distanceTOP:0
-        
+        distanceTOP:0,
     }
 },
  props:{
@@ -28,7 +27,7 @@ data() {
              this.currentInedx = index
              this.$emit('tabClick',index)
     },
-   }
+   },
 }
 </script>
 
@@ -37,10 +36,8 @@ data() {
     display: flex;
     text-align: center;
     font-size: 15px;
-    position: sticky;
-    top: 44px;
     background-color: #f6f6f6;
-    z-index: 9;
+    z-index: 9999;
 }
 .tab-control-item{
     flex: 1;

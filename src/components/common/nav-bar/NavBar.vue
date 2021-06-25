@@ -22,12 +22,18 @@ export default {
     height: 44px;
     z-index: 9;
 }
-.nav-left,
+.nav-left{
+    width: 44px;
+    line-height: 44px;
+    text-align: center;
+    font-family: "iconfont";
+    font-size: 20px;
+}
 .nav-right{
     width: 44px;
     line-height: 44px;
     text-align: center;
-    color:#fff;
+    padding: 2px;
 }
 .nav-center{
     flex: 1;
