@@ -1,11 +1,13 @@
 <template>
-  <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+<div>
+      <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
   <van-swipe-item v-for="(image, index) in banners" :key="index">
       <a :href="image.link" class="image-a">
           <img :src="image.image" alt="" class="image">
       </a>
   </van-swipe-item>
 </van-swipe>
+</div>
 </template>
 
 <script>

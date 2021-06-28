@@ -6,8 +6,12 @@ export default {
         return state.cartList
     },
     sumPrice(state) {
-        return state.cartList.reduce((sum, item) => {
+        let newArr = []
+        newArr = state.cartList.filter(item => item.checked)
+        let sums = 0
+        sums = newArr.reduce((sum, item) => {
             return sum + item.price * item.count
         }, 0)
+        return sums
     }
 }

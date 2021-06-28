@@ -9,9 +9,13 @@
       </div>
     </template>
     <template #nav-right>
-      <div>登录</div>
+      <div @click="loginClick">登录</div>
     </template>
   </nav-bar>
+  <div class="tabcontrol" :class="{tabdispalay:isFixed}">
+    <tab-control :titles="['流行','新款','精选']" 
+     @tabClick="tabClick"/>
+  </div>
 <scroll ref="scroll" @scroll="contentScroll" @pullingUp="loadMore"> 
   <div class="scrollhg">
    <swiper :banners="banners"></swiper>
@@ -35,11 +39,12 @@
   </div>
 </scroll>
 <back-top  @click="backClick" v-show="isShow"/>
+<pop-up-login ref="login"/>
 </template>
 
 <script>
 //滚动区域
-import scroll from 'components/common/scroll/Scroll.vue'
+import Scroll from 'components/common/scroll/Scroll.vue'
 //头部导航
 import NavBar from 'components/common/nav-bar/NavBar.vue'
 //轮播图
@@ -58,7 +63,7 @@ import GoodsList from './GoodsList.vue'
 import BackTop from 'components/BackTop.vue'
 //首页axios封装网络请求
 import {getHomeMultData,getHomeGoodsData} from '@/network/home.js'
-import Scroll from '../../components/common/scroll/Scroll.vue'
+import PopUpLogin from './PopUpLogin.vue'
 export default {
  components:{
    NavBar,
@@ -70,8 +75,8 @@ export default {
    TabControl,
    GoodsList,
    BackTop,
-   scroll,
-  Scroll
+   Scroll,
+   PopUpLogin
 },
  data() {
     return {
@@ -119,6 +124,8 @@ export default {
       isShow:false,
       times:null,
       detaiHeight:0,
+      TabControlTop : 0,
+      isFixed: false
     }
   },
  created(){
@@ -171,14 +178,18 @@ export default {
   //显示隐藏返回顶部按钮和tab-control的固定定位
   contentScroll(xy){
    this.isShow= xy.y<-750?this.isShow = true:this.isShow=false
+   this.isFixed = -xy.y>this.TabControlTop? this.isFixed=true:this.isFixed=false
   },
   //上拉加载更多
   loadMore(){
     this.$refs.load.isIf = true
     this.getHomeGoodsData(this.currentType)
     
+  },
+  // 弹出登录框
+  loginClick(){
+   this.$refs.login.show = true
   }
-
   //返回顶部点击
 //   backClick(){
 //       this.times = setInterval(() => {
@@ -201,6 +212,12 @@ export default {
 //  window.addEventListener('scroll',this.showBackTop,true)
 // },
  },
+ activated() {
+  this.$refs.scroll.bs.refresh();
+ },
+ updated() {
+   this.TabControlTop = this.$refs.gettop.$el.offsetTop
+ },
 }
 </script>
 
@@ -220,6 +237,16 @@ export default {
     overflow: hidden;
     padding-bottom: 49px;
     height: calc(100%-93px);
-
+}
+.tabcontrol{
+    display: none;
+    position: absolute;
+    top: 44px;
+    left: 0;
+    z-index: 99;
+    width: 100%;
+}
+.tabdispalay{
+  display: block;
 }
 </style>

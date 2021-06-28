@@ -1,6 +1,8 @@
 <template>
   <div class="goods-list">
-     <goods-list-item v-for="item in goods" :goodsItem="item" />
+     <slot>
+         <goods-list-item v-for="item in goods" :goodsItem="item" />
+     </slot>
      <span v-if="isIf">---------正在加载中---------</span>
   </div>
 </template>

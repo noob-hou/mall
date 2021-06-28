@@ -30,7 +30,7 @@ export default {
     },
     computed: {
        showImg(){
-        return  this.goodsItem.image || this.goodsItem.show.img
+        return  this.goodsItem.img||this.goodsItem.image || this.goodsItem.show.img
        }
     },
     methods: {
@@ -75,7 +75,7 @@ export default {
   text-overflow:ellipsis;
 }
 .item-text span{
-    margin: auto 10px;
+    margin: auto 0;
 }
 .active{
     color: #ee0a0aa3;

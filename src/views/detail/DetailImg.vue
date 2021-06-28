@@ -3,8 +3,7 @@
       <div>{{data.desc}}</div>
       <div class="key">{{data.detailImage[0].key}}</div>
       <div class="img">
-        <img :src="item" alt="" 
-        v-for="item in data.detailImage[0].list" @load="imgLoad">
+        <img alt="" v-for="item in data.detailImage[0].list" @load="imgLoad" :src="item">
       </div>
   </div>
 </template>

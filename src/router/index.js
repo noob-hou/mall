@@ -7,6 +7,8 @@ const Cart = () =>
     import ('views/cart/Cart.vue');
 const Profile = () =>
     import ('views/profile/Profile.vue');
+const Manage = () =>
+    import ('views/profile/add/Manage.vue');
 const Detail = () =>
     import ('../views/detail/Detail.vue');
 const routes = [{
@@ -29,13 +31,18 @@ const routes = [{
         meta: { keepAlive: true },
     }, {
         path: '/profile',
-        component: Profile
+        component: Profile,
+        children: []
     },
     {
         name: 'detail',
         path: '/detail/:iid',
         component: Detail
-    },
+    }, {
+        path: '/add',
+        component: Manage,
+        meta: { keepAlive: true },
+    }
 ]
 
 const router = createRouter({

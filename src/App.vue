@@ -2,9 +2,11 @@
  <main-tab-bar></main-tab-bar>
  <router-view v-slot="{ Component }">
   <transition>
-    <keep-alive exclude="detail">
+    <div>
+      <keep-alive exclude="detail">
       <component :is="Component" />
     </keep-alive>
+    </div>
   </transition>
 </router-view>
 </template>

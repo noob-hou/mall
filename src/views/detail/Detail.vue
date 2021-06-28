@@ -79,7 +79,7 @@ export default {
  created() {
      this.iid = this.$route.params.iid
      getDetail(this.iid).then(res=>{
-        const data = res.result
+        const data = res.result 
         //轮播图数据
         this.topImg = data.itemInfo.topImages
         //商品详情数据
@@ -100,10 +100,13 @@ export default {
         this.OffsetY = []
          this.OffsetY.push(0)
          this.OffsetY.push(this.$refs.size.$el.offsetTop)
-         this.OffsetY.push(this.$refs.commenter.$el.offsetTop||0)
-         this.OffsetY.push(this.$refs.recommend.$el.offsetTop)
+         this.OffsetY.push(this.$refs.commenter.$el.offsetTop)
+         this.OffsetY.push(this.$refs.recommend.$el.offsetTop )
          this.OffsetY.push(Number.MAX_VALUE)
      },100)
+ },
+ mounted() {
+      this.$refs.scroll.bs.refresh()
  },
  methods: {
      BackClick(){
@@ -121,7 +124,7 @@ export default {
      scroll(xy){
         this.isShow= xy.y<-750?this.isShow = true:this.isShow=false
         this.OffsetY.forEach((item,index,arr)=>{
-            if(-xy.y>arr[index]&&-xy.y<arr[index+1]){
+            if(-xy.y+10>arr[index]&&-xy.y+10<arr[index+1]){
               this.current = index
             }
         })
