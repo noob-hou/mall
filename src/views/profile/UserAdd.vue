@@ -10,7 +10,7 @@
 export default {
  methods: {
      addClick(){
-        //  this.$router.push('/add')
+         this.$router.push('/add')
      }
  },
 }

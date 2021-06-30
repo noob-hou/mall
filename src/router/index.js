@@ -42,6 +42,11 @@ const routes = [{
         path: '/add',
         component: Manage,
         meta: { keepAlive: true },
+
+    }, {
+        path: '/addlocation',
+        component: () =>
+            import ('../views/profile/add/AddAddress.vue')
     }
 ]
 

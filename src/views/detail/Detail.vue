@@ -96,7 +96,15 @@ export default {
      getRcommend().then(res=>{
        this.recommendData = res.data.list;
      })
-     this.getTopY = debounce(()=>{
+   
+ },
+ mounted() {
+      this.$refs.scroll.bs.refresh()
+      this.getOffsetTop()
+ },
+ methods: {
+     getOffsetTop(){
+        this.getTopY = debounce(()=>{
         this.OffsetY = []
          this.OffsetY.push(0)
          this.OffsetY.push(this.$refs.size.$el.offsetTop)
@@ -104,11 +112,7 @@ export default {
          this.OffsetY.push(this.$refs.recommend.$el.offsetTop )
          this.OffsetY.push(Number.MAX_VALUE)
      },100)
- },
- mounted() {
-      this.$refs.scroll.bs.refresh()
- },
- methods: {
+     },
      BackClick(){
          this.$router.back()
      },

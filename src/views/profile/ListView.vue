@@ -1,7 +1,7 @@
 <template>
     <div id="list">
       <div v-for="(item, index) in listData" :key="index" class="item">
-        <span class="icon">&#xeead;</span>
+        <span class="icon"><i :class="item.iconColor"></i></span>
         <div class="info">{{item.info}}</div>
       </div>
     </div>
@@ -50,5 +50,8 @@
 
   .item:last-of-type .info {
     border-bottom: none;
+  }
+  .icon{
+     color: salmon;
   }
 </style>

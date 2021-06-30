@@ -30,13 +30,13 @@ export default {
    data: function () {
 		  return {
 		    orderList: [
-          {icon: '#icon-message-01', iconColor: '&#xe6df;', info: '我的消息'},
-          {icon: '#icon-gouwu', iconColor: '&#xeead;', info: '积分商城'},
-          {icon: '#icon-huiyuanka', iconColor: '&#xee92;', info: '会员卡'},
+          {icon: '#icon-message-01', iconColor: 'iconfont icon-message-01', info: '我的消息'},
+          {icon: '#icon-gouwu', iconColor: 'iconfont icon-gouwu', info: '积分商城'},
+          {icon: '#icon-huiyuanka', iconColor: 'iconfont icon-huiyuanka', info: '会员卡'},
         ],
         serviceList: [
-          {icon: '#icon-gouwuche2', iconColor: '&#xe62d;', info: '我的购物车'},
-          {icon: '#icon-xiazai', iconColor: '&#xe615;', info: '下载购物APP'},
+          {icon: '#icon-gouwuche2', iconColor: 'iconfont icon-gouwuche2', info: '我的购物车'},
+          {icon: '#icon-xiazai', iconColor: 'iconfont icon-xiazai', info: '下载购物APP'},
         ]
       }
     },
