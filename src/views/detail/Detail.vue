@@ -107,9 +107,9 @@ export default {
         this.getTopY = debounce(()=>{
         this.OffsetY = []
          this.OffsetY.push(0)
-         this.OffsetY.push(this.$refs.size.$el.offsetTop)
-         this.OffsetY.push(this.$refs.commenter.$el.offsetTop)
-         this.OffsetY.push(this.$refs.recommend.$el.offsetTop )
+        this.$refs.size.$el && this.OffsetY.push(this.$refs.size.$el.offsetTop)
+        this.$refs.commenter.$el&& this.OffsetY.push(this.$refs.commenter.$el.offsetTop)
+        this.$refs.recommend.$el&& this.OffsetY.push(this.$refs.recommend.$el.offsetTop )
          this.OffsetY.push(Number.MAX_VALUE)
      },100)
      },
