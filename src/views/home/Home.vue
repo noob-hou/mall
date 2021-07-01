@@ -236,7 +236,6 @@ export default {
   
     overflow: hidden;
     padding-bottom: 49px;
-    height: calc(100%-93px);
 }
 .tabcontrol{
     display: none;
