@@ -21,6 +21,7 @@ export default {
     left: 0;
     height: 44px;
     z-index: 9;
+    width: 100vw;
 }
 .nav-left{
     width: 44px;

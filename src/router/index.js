@@ -11,6 +11,8 @@ const Manage = () =>
     import ('views/profile/add/Manage.vue');
 const Detail = () =>
     import ('../views/detail/Detail.vue');
+const Login = () =>
+    import ('../components/Login.vue');
 const routes = [{
         path: '',
         redirect: '/home'
@@ -47,12 +49,13 @@ const routes = [{
         path: '/addlocation',
         component: () =>
             import ('../views/profile/add/AddAddress.vue')
+    }, {
+        path: '/login',
+        component: Login
     }
 ]
-
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes
 })
-
 export default router
