@@ -12,7 +12,9 @@ const Manage = () =>
 const Detail = () =>
     import ('../views/detail/Detail.vue');
 const Login = () =>
-    import ('../components/Login.vue');
+    import ('../views/home/PopUpLogin.vue');
+const Register = () =>
+    import ('../components/Register.vue');
 const routes = [{
         path: '',
         redirect: '/home'
@@ -52,10 +54,21 @@ const routes = [{
     }, {
         path: '/login',
         component: Login
+    }, {
+        path: '/register',
+        component: Register
     }
 ]
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes
+})
+router.beforeEach((to, from, next) => {
+    if (to.path == '/cart' || to.path == '/add') {
+        const token = window.sessionStorage.getItem('token')
+        if (!token) return next('/login');
+        next()
+    }
+    return next()
 })
 export default router

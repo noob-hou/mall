@@ -39,7 +39,6 @@
   </div>
 </scroll>
 <back-top  @click="backClick" v-show="isShow"/>
-<pop-up-login ref="login"/>
 </template>
 
 <script>
@@ -133,7 +132,6 @@ export default {
    this.getHomeGoodsData('pop')
    this.getHomeGoodsData('new')
    this.getHomeGoodsData('sell')
-   console.log('首页被创建了');
  },
  methods: {
   //网络请求home组件数据
@@ -174,6 +172,7 @@ export default {
   //返回顶部
   backClick(){
         this.$refs.scroll.bs.scrollTo(0,0,500)
+        window.scrollY(0)
   },
   //显示隐藏返回顶部按钮和tab-control的固定定位
   contentScroll(xy){
@@ -188,7 +187,7 @@ export default {
   },
   // 弹出登录框
   loginClick(){
-   this.$refs.login.show = true
+    this.$router.push('/login')
   }
   //返回顶部点击
 //   backClick(){

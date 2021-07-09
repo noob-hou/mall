@@ -97,6 +97,7 @@ export default {
             const userInfo = JSON.stringify(this.userInfo)
             window.localStorage.setItem('userInfo',userInfo)
             this.$router.push('/home')
+            Toast('注册成功')
         }).catch(()=>{
             Toast('请检查信息是否输入正确')
         })

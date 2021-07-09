@@ -37,11 +37,8 @@ export default {
         likeClick(){
           this.isActive = !this.isActive
         },
-        imgLoad(){
-            if(this.$route.path.indexOf('/home')){
-              Bus.emit('imgLoad',"1111")
-            }
-            
+        imgLoad(){   
+              Bus.emit('imgLoad',"1111")      
         },
         itemClick(){
             this.$router.push('/detail/'+this.goodsItem.iid)

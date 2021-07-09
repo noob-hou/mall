@@ -20,5 +20,6 @@ export default {
 @import "assets/css/base.css";
 #app {
   height: calc(100vh - var(--status-bar-height) - var(--window-bottom));
+  width: 100vw;
 }
 </style>
