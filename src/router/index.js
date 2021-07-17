@@ -52,6 +52,10 @@ const routes = [{
         component: () =>
             import ('../views/profile/add/AddAddress.vue')
     }, {
+        path: '/editaddress',
+        component: () =>
+            import ('../views/profile/add/EditAddress.vue')
+    }, {
         path: '/login',
         component: Login
     }, {
@@ -68,7 +72,8 @@ router.beforeEach((to, from, next) => {
         const token = window.sessionStorage.getItem('token')
         if (!token) return next('/login');
         next()
+    } else {
+        return next()
     }
-    return next()
 })
 export default router

@@ -41,3 +41,9 @@ export function request(config) {
     })
     return instance(config)
 }
+export function request_user(data) {
+    const instance = axios.create({
+        baseURL: 'http://api.0x07.cn/api/user'
+    })
+    return instance(data)
+}

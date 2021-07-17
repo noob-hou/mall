@@ -8,5 +8,9 @@ export default {
             payload.checked = true
             state.cartList.push(payload)
         }
+        let cart = JSON.stringify(state.cartList)
+        window.sessionStorage.setItem('cart', cart)
+        state.cartList = JSON.parse(window.sessionStorage.getItem('cart'))
     }
+
 }

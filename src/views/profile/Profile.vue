@@ -5,11 +5,12 @@
               <div> noob-hou个人商城</div>
           </template>
       </nav-bar>
-      <user/>
+      <user ref="user"/>
       <money/>
       <add/>
       <list-view :list-data="orderList" class="order-list"/>
       <list-view :list-data="serviceList" class="service-list"/>
+      <list-view  class="service-list" :list-data="quitLogin" @click="quitLoginCLick"/>
   </div>
 </template>
 
@@ -19,6 +20,7 @@ import User from './User.vue'
 import Money from './Money.vue'
 import ListView from './ListView.vue'
 import Add from './UserAdd.vue'
+import { Toast } from 'vant'
 export default {
   components: { 
     NavBar,
@@ -37,9 +39,18 @@ export default {
         serviceList: [
           {icon: '#icon-gouwuche2', iconColor: 'iconfont icon-gouwuche2', info: '我的购物车'},
           {icon: '#icon-xiazai', iconColor: 'iconfont icon-xiazai', info: '下载购物APP'},
-        ]
+        ],
+        quitLogin:[{info:'退出登录'}]
       }
+      
     },
+   methods:{
+        quitLoginCLick(){
+          window.sessionStorage.clear()
+          this.$refs.user.getInfoData()
+          Toast('您已成功退出')
+        }
+      },
 }
 </script>
 

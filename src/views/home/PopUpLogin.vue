@@ -9,7 +9,7 @@
     <div class="form" @focusout="handleInputBlur" @focusin="handleInputBin">
       <van-cell-group>
         <van-field
-          v-model="info.name"
+          v-model="info.username"
           label="用户名"
           placeholder="请输入用户名"
         />
@@ -20,6 +20,7 @@
           label="密码"
           placeholder="请输入密码"
           type="password"
+          autocomplete="new-password"
         />
       </van-cell-group>
     </div>
@@ -31,14 +32,15 @@
 </template>
 
 <script>
-import { Toast } from "vant";
+import getLogin from '@/network/login.js'
+import { Toast } from 'vant';
 export default {
   data() {
     return {
       show: true,
       info: {
-        name: "",
-        password: "",
+        username: "noob_hou",
+        password: "a123456",
       },
       timer: null,
     };
@@ -47,18 +49,29 @@ export default {
     goRegister() {
       this.$router.push("/register");
     },
-    login() {
-      const info = JSON.parse(window.localStorage.getItem("userInfo"));
-      if (this.info.name == info.name && this.info.password == info.password) {
-        window.sessionStorage.setItem("token", this.info);
-        Toast("登录成功");
+    async login() {
+        //  let users = window.localStorage.getItem("users")
+        //   users =users==null?[]:JSON.parse(users)
+        //   let flag = users.forEach(item=>{
+        //   if(item.name == this.info.name & item.password == this.info.password){
+        //     window.sessionStorage.setItem('token','用户已登录')
+        //     this.$router.back()
+        //     return Toast('登录成功')
+        //   }else{
+        //     Toast('用户名或密码错误')
+        //   }   
+        // })
+      const {data} = await getLogin(this.info)
+      Toast(data.msg)
+      if(data.data.ret == true){
+        window.sessionStorage.setItem('token',data.data.token)
+        window.sessionStorage.setItem('userinfo',JSON.stringify(data.data))
         this.$router.back()
-      } else {
-        Toast("用户名或者密码错误");
       }
+      
+
     },
     handleInputBlur(e) {
-      console.log(e);
       if (this.timer) {
         clearTimeout(this.timer);
       }

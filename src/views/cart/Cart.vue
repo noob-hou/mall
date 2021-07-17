@@ -3,12 +3,12 @@
     <nav-bar class="nav">
       <template #nav-center>
         <div class="cart-num">
-          购物车({{cartLength}})
+          购物车({{cartList.length}})
         </div>
       </template>
     </nav-bar>
-    <product-list/>
-    <bottom-bar/>
+    <product-list :cartItemList="cartList"/>
+    <bottom-bar :cartData="cartList"/>
   </div>
 </template>
 
@@ -16,16 +16,24 @@
 import NavBar from 'components/common/nav-bar/NavBar.vue'
 import ProductList from './ProductList.vue'
 import BottomBar from './BottomBar.vue'
-
-import {mapGetters} from 'vuex'
 export default {
+name:'cart',
  components:{
    NavBar,
    ProductList,
    BottomBar
  },
- computed:{
-    ...mapGetters(['cartLength'])
+ data() {
+   return {
+     cartList:[]
+   }
+ },
+ created() {
+   let cart = JSON.parse( window.sessionStorage.getItem('cart'))||[]
+   this.cartList = cart
+ },
+activated() {
+  this.cartList = JSON.parse(window.sessionStorage.getItem('cart'))||[]
  }
 }
 </script>

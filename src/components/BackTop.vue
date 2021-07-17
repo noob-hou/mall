@@ -12,7 +12,7 @@ export default {
 <style>
  .backtop{
     position: fixed;
-    bottom: 50px;
+    bottom: 80px;
     right: 6px;
     width: 60px;
     height: 60px;

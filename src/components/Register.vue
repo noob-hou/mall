@@ -6,9 +6,9 @@
       left-arrow
       @click-left="onClickLeft"
     />
-    <van-form @submit="onSubmit" ref="form">
+    <van-form ref="userInfo">
       <van-field
-        v-model="userInfo.name"
+        v-model="userInfo.username"
         name="用户名"
         label="用户名"
         placeholder="用户名"
@@ -37,8 +37,13 @@
         :rules="formRules.email"
       />
       <div style="margin: 16px">
-        <van-button round block type="success" native-type="submit"
-          @click="submitInfo">提交</van-button
+        <van-button
+          round
+          block
+          type="success"
+          native-type="submit"
+          @click="submitInfo"
+          >提交</van-button
         >
       </div>
     </van-form>
@@ -46,8 +51,10 @@
 </template>
 
 <script>
-import { Toast } from 'vant';
+import { Toast } from "vant";
+import getUserRegister from "../network/register.js";
 export default {
+  name:'register',
   data() {
     return {
       formRules: {
@@ -56,7 +63,7 @@ export default {
           { required: true, message: "请填写密码" },
           {
             pattern: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/,
-            message: "加个字母把安全一些",
+            message: "长度为6-16，不能为纯数字",
             trigger: "onBlur",
           },
         ],
@@ -79,10 +86,10 @@ export default {
         ],
       },
       userInfo: {
-        name: "noob_hou",
-        password: "a123456",
-        tel:'13696223046',
-        email:'123456@qq.com'
+        username: "",
+        password: "",
+        tel: "",
+        email: "",
       },
     };
   },
@@ -92,16 +99,25 @@ export default {
       this.$router.push("/home");
     },
     // 提交注册
-    submitInfo(){
-        this.$refs.form.validate().then(()=>{
-            const userInfo = JSON.stringify(this.userInfo)
-            window.localStorage.setItem('userInfo',userInfo)
-            this.$router.push('/home')
-            Toast('注册成功')
-        }).catch(()=>{
-            Toast('请检查信息是否输入正确')
-        })
-    }
+    async submitInfo() {
+      // this.$refs.userInfo.validate().then(()=>{
+      //   let users = window.localStorage.getItem('users')
+      //   users = users == null?[]:JSON.parse(users)
+      //   const userInfo = this.userInfo
+      //   users.push(userInfo)
+      //   users = JSON.stringify(users)
+      //   window.localStorage.setItem('users',users)
+      //   this.$router.back()
+      //   Toast('注册成功')
+      // }).catch(()=>{
+      //   Toast('请检查信息是否输入正确')
+      // })
+      const { data } = await getUserRegister(this.userInfo);
+      Toast(data.msg);
+      if (data.data.ret == true) {
+        this.$router.back();
+      }
+    },
   },
 };
 </script>
