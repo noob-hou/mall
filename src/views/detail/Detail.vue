@@ -116,7 +116,8 @@ export default {
   },
   methods: {
     getOffsetTop() {
-      this.getTopY = debounce(() => {
+       this.$nextTick(()=>{
+         this.getTopY = debounce(() => {
         this.OffsetY = [];
         this.OffsetY.push(0);
         this.$refs.size.$el && this.OffsetY.push(this.$refs.size.$el.offsetTop);
@@ -126,6 +127,7 @@ export default {
           this.OffsetY.push(this.$refs.recommend.$el.offsetTop);
         this.OffsetY.push(Number.MAX_VALUE);
       }, 100);
+       })
     },
     BackClick() {
       this.$router.back();
@@ -133,7 +135,9 @@ export default {
     spanClick(index) {
       this.current = index;
       //点击到对应位置
-      this.$refs.scroll.bs.scrollTo(0, -this.OffsetY[index], 500);
+      this.$nextTick(()=>{
+        this.$refs.scroll.bs.scrollTo(0, -this.OffsetY[index], 500);
+      })
     },
     imgLoad() {
       this.getTopY();

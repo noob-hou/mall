@@ -50,11 +50,12 @@ export default {
 <style>
 .goods-list-item{
     width: 48%;
-    margin-right: 2%;
+    margin-right: 2px;
     margin-bottom: 5px;
     border-radius: 10px;
     border:1px solid #ee0a0aa3;
     box-sizing: border-box;
+    overflow: hidden;
 }
 .goods-list-item img{
     display: block;

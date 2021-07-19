@@ -39,8 +39,8 @@ export default {
     return {
       show: true,
       info: {
-        username: "noob_hou",
-        password: "a123456",
+        username: "",
+        password: "",
       },
       timer: null,
     };
